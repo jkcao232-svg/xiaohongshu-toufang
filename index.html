@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小红书聚光及乘风投放素材分析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/v4-shims.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF2442',
+                        secondary: '#FF6B81',
+                        accent: '#FFB6C1',
+                        dark: '#2D3748',
+                        light: '#F7FAFC'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                },
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .gradient-bg {
+                background: linear-gradient(135deg, #FF2442 0%, #FF6B81 100%);
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 20px 40px rgba(255, 36, 66, 0.15);
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .animate-float {
+                animation: float 6s ease-in-out infinite;
+            }
+            @keyframes float {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-20px); }
+            }
+        }
+    </style>
+</head>
+<body class="font-inter bg-gray-50 text-gray-800">
+    <!-- 导航栏 -->
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center">
+                        <i class="fa fa-bullseye text-white text-lg"></i>
+                    </div>
+                    <span class="text-xl font-bold text-primary">聚光乘风分析</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#overview" class="text-gray-600 hover:text-primary transition-colors">平台概览</a>
+                    <a href="#cases" class="text-gray-600 hover:text-primary transition-colors">成功案例</a>
+                    <a href="#templates" class="text-gray-600 hover:text-primary transition-colors">投放模板</a>
+                    <a href="#data" class="text-gray-600 hover:text-primary transition-colors">数据分析</a>
+                    <a href="#strategy" class="text-gray-600 hover:text-primary transition-colors">投放策略</a>
+                </div>
+                <button class="md:hidden text-gray-600" id="mobile-menu-btn">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- 移动端菜单 -->
+        <div class="md:hidden hidden bg-white border-t" id="mobile-menu">
+            <div class="px-4 py-3 space-y-3">
+                <a href="#overview" class="block text-gray-600 hover:text-primary transition-colors">平台概览</a>
+                <a href="#cases" class="block text-gray-600 hover:text-primary transition-colors">成功案例</a>
+                <a href="#templates" class="block text-gray-600 hover:text-primary transition-colors">投放模板</a>
+                <a href="#data" class="block text-gray-600 hover:text-primary transition-colors">数据分析</a>
+                <a href="#strategy" class="block text-gray-600 hover:text-primary transition-colors">投放策略</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 -->
+    <section class="pt-24 pb-16 gradient-bg text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight text-shadow">
+                        小红书聚光及乘风<br>
+                        <span class="text-accent">投放素材分析</span>
+                    </h1>
+                    <p class="text-xl text-white/90 leading-relaxed">
+                        深度解析小红书两大核心投放平台，从成功案例到投放模板，
+                        全方位掌握聚光与乘风的投放精髓，助力品牌实现品效合一。
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="scrollToSection('overview')" class="bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all shadow-lg">
+                            <i class="fa fa-play mr-2"></i>开始探索
+                        </button>
+                        <button onclick="scrollToSection('cases')" class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-all">
+                            <i class="fa fa-chart-line mr-2"></i>查看案例
+                        </button>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl animate-pulse"></div>
+                    <img src="https://doc.doubao.com/s/qDa8CwMY5fA/" alt="小红书投放展示" class="relative z-10 rounded-2xl shadow-2xl animate-float">
+                    <div class="absolute -bottom-4 -right-4 bg-white text-primary px-4 py-2 rounded-lg font-semibold shadow-lg">
+                        聚光投放
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 平台概览 -->
+    <section id="overview" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-gray-900 mb-4">平台概览</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    小红书聚光与乘风平台定位不同，功能互补，为品牌提供全方位的营销解决方案
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- 聚光平台 -->
+                <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-8 card-hover">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center">
+                            <i class="fa fa-bullseye text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900">聚光平台</h3>
+                    </div>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="flex items-start space-x-3">
+                            <i class="fa fa-check-circle text-primary mt-1"></i>
+                            <span>一站式广告投放平台，面向企业客户</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fa fa-check-circle text-primary mt-1"></i>
+                            <span>精准定向人群，数据驱动投放</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fa fa-check-circle text-primary mt-1"></i>
+                            <span>支持信息流、搜索广告等多种形式</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fa fa-check-circle text-primary mt-1"></i>
+                            <span>适合追求转化效果、快速提升ROI</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/80 rounded-lg p-4">
+                        <h4 class="font-semibold text-gray-900 mb-2">适用场景</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">电商促销</span>
+                            <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">APP下载</span>
+                            <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">品牌种草</span>
+                            <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">客资收集</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 乘风平台 -->
+                <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 card-hover">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-16 h-16 bg-green-500 rounded-xl flex items-center justify-center">
+                            <i class="fa fa-rocket text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900">乘风平台</h3>
+                    </div>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="flex items-start space-x-3">
+                            <i class="fa fa-check-circle text-green-500 mt-1"></i>
+                            <span>专为电商商家设计的营销平台</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fa fa-check-circle text-green-500 mt-1"></i>
+                            <span>串联种草和电商两大营销场景</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fa fa-check-circle text-green-500 mt-1"></i>
+                            <span>支持个人号/企业号投放，门槛较低</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fa fa-check-circle text-green-500 mt-1"></i>
+                            <span>特别支持直播间推广、商品访客定向</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/80 rounded-lg p-4">
+                        <h4 class="font-semibold text-gray-900 mb-2">适用场景</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-green-500/10 text-green-500 px-3 py-1 rounded-full text-sm">直播带货</span>
+                            <span class="bg-green-500/10 text-green-500 px-3 py-1 rounded-full text-sm">商品推广</span>
+                            <span class="bg-green-500/10 text-green-500 px-3 py-1 rounded-full text-sm">电商闭环</span>
+                            <span class="bg-green-500/10 text-green-500 px-3 py-1 rounded-full text-sm">智能扩量</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 成功案例 -->
+    <section id="cases" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-gray-900 mb-4">成功案例分析</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    精选行业标杆案例，深度解析投放策略与数据表现
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
+                <!-- 房地产案例 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+                    <div class="relative h-48 bg-gradient-to-r from-blue-500 to-purple-600">
+                        <img src="https://doc.doubao.com/s/IJjgL7LQDEg/" alt="房地产投放案例" class="w-full h-full object-cover mix-blend-overlay">
+                        <div class="absolute inset-0 bg-black/20 flex items-center justify-center">
+                            <span class="text-white font-bold text-lg px-4 py-2 bg-primary rounded-full">房地产行业</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">招商序房地产项目</h3>
+                        <div class="space-y-3 mb-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">点击率(CTR)</span>
+                                <span class="font-semibold text-primary">10.6%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">进线成本</span>
+                                <span class="font-semibold text-green-600">83.95元</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">留资数</span>
+                                <span class="font-semibold text-blue-600">29个</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 text-sm">
+                            通过样板间实景视频、工程进度展示等内容，配合精准地域定向，实现了远超大盘的投放效果。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 口腔医院案例 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+                    <div class="relative h-48 bg-gradient-to-r from-pink-500 to-red-600">
+                        <img src="https://doc.doubao.com/s/GZemvNCw7QY/" alt="口腔医院投放案例" class="w-full h-full object-cover mix-blend-overlay">
+                        <div class="absolute inset-0 bg-black/20 flex items-center justify-center">
+                            <span class="text-white font-bold text-lg px-4 py-2 bg-primary rounded-full">医疗健康</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">蔚来口腔正畸项目</h3>
+                        <div class="space-y-3 mb-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">CPM成本</span>
+                                <span class="font-semibold text-green-600">77.5元</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">进线成本</span>
+                                <span class="font-semibold text-green-600">187.58元</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">单条笔记进线</span>
+                                <span class="font-semibold text-blue-600">64个</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 text-sm">
+                            针对暑期学生钢牙自锁项目优惠，通过价格优势和场景化内容，吸引精准目标客户。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 彩妆品牌案例 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+                    <div class="relative h-48 bg-gradient-to-r from-purple-500 to-pink-600">
+                        <img src="https://doc.doubao.com/s/TUa3M2751eI/" alt="彩妆品牌投放案例" class="w-full h-full object-cover mix-blend-overlay">
+                        <div class="absolute inset-0 bg-black/20 flex items-center justify-center">
+                            <span class="text-white font-bold text-lg px-4 py-2 bg-primary rounded-full">美妆行业</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">国货彩妆品牌</h3>
+                        <div class="space-y-3 mb-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">月销售额</span>
+                                <span class="font-semibold text-green-600">350万+</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">单场直播GMV</span>
+                                <span class="font-semibold text-green-600">20万+</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">人群资产增长</span>
+                                <span class="font-semibold text-blue-600">1.5倍</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 text-sm">
+                            利用乘风平台高级定向+智能拓量+托管功能，通过100+篇优质笔记实现销量突破。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 投放模板 -->
+    <section id="templates" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-gray-900 mb-4">投放素材模板</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    7大行业通用模板，覆盖不同营销场景，可直接套用
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-6">
+                <!-- 模板1 -->
+                <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-6 card-hover">
+                    <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa fa-thumbs-up text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-3">自卖自夸型</h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        封面写明产品卖点，正文中阐述购买理由，文末引导用户咨询。
+                    </p>
+                    <div class="bg-white/80 rounded-lg p-3">
+                        <span class="text-xs text-gray-500">适用：</span>
+                        <span class="text-xs font-semibold text-primary">服务类、产品类</span>
+                    </div>
+                </div>
+
+                <!-- 模板2 -->
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 card-hover">
+                    <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa fa-bullseye text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-3">客户案例型</h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        用户使用前后对比，植入购买理由和指南，适合装修、美妆等行业。
+                    </p>
+                    <div class="bg-white/80 rounded-lg p-3">
+                        <span class="text-xs text-gray-500">适用：</span>
+                        <span class="text-xs font-semibold text-blue-500">装修、旅游、婚纱</span>
+                    </div>
+                </div>
+
+                <!-- 模板3 -->
+                <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 card-hover">
+                    <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa fa-list-ul text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-3">购买选择型</h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        将产品植入用户购买选择中，披着科普外衣，点击率较高。
+                    </p>
+                    <div class="bg-white/80 rounded-lg p-3">
+                        <span class="text-xs text-gray-500">适用：</span>
+                        <span class="text-xs font-semibold text-green-500">排行榜、测评类</span>
+                    </div>
+                </div>
+
+                <!-- 模板4 -->
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 card-hover">
+                    <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa fa-user text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-3">品牌人设型</h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        介绍品牌故事、产品特点，让用户感受品牌温度，建立信任。
+                    </p>
+                    <div class="bg-white/80 rounded-lg p-3">
+                        <span class="text-xs text-gray-500">适用：</span>
+                        <span class="text-xs font-semibold text-purple-500">品牌建设、信任背书</span>
+                    </div>
+                </div>
+
+                <!-- 模板5 -->
+                <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl p-6 card-hover">
+                    <div class="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa fa-file-text text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-3">服务清单型</h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        类似课表形式，展示服务内容、价格及包含项目，锁定购买用户。
+                    </p>
+                    <div class="bg-white/80 rounded-lg p-3">
+                        <span class="text-xs text-gray-500">适用：</span>
+                        <span class="text-xs font-semibold text-orange-500">服务类、课程类</span>
+                    </div>
+                </div>
+
+                <!-- 模板6 -->
+                <div class="bg-gradient-to-br from-pink-50 to-pink-100 rounded-2xl p-6 card-hover">
+                    <div class="w-12 h-12 bg-pink-500 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa fa-money text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-3">价格优势型</h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        大胆展示价格，筛选最有价值客户，适合价格有优势的产品。
+                    </p>
+                    <div class="bg-white/80 rounded-lg p-3">
+                        <span class="text-xs text-gray-500">适用：</span>
+                        <span class="text-xs font-semibold text-pink-500">价格敏感型产品</span>
+                    </div>
+                </div>
+
+                <!-- 模板7 -->
+                <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-2xl p-6 card-hover">
+                    <div class="w-12 h-12 bg-indigo-500 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa fa-exclamation-triangle text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-3">人群痛点型</h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        围绕用户痛点提供解决方案，植入购买理由和指令促进转化。
+                    </p>
+                    <div class="bg-white/80 rounded-lg p-3">
+                        <span class="text-xs text-gray-500">适用：</span>
+                        <span class="text-xs font-semibold text-indigo-500">问题解决型产品</span>
+                    </div>
+                </div>
+
+                <!-- 模板公式 -->
+                <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 card-hover">
+                    <div class="w-12 h-12 bg-gray-500 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa fa-magic text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-3">通用公式</h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        用户冲突+流量母体+购买理由+购买指南+购买承诺+购买指令
+                    </p>
+                    <div class="bg-white/80 rounded-lg p-3">
+                        <span class="text-xs text-gray-500">适用：</span>
+                        <span class="text-xs font-semibold text-gray-500">所有行业</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 数据分析 -->
+    <section id="data" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-gray-900 mb-4">数据分析</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    基于真实投放数据，深度分析平台表现与投放效果
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- 平台对比图表 -->
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">聚光 vs 乘风 平台对比</h3>
+                    <div class="h-80">
+                        <canvas id="platformComparisonChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 投放效果趋势 -->
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">投放效果趋势分析</h3>
+                    <div class="h-80">
+                        <canvas id="performanceTrendChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 数据指标卡片 -->
+            <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-6 mt-8">
+                <div class="bg-white rounded-xl p-6 shadow-lg">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="text-lg font-semibold text-gray-900">平均点击率</h4>
+                        <i class="fa fa-line-chart text-primary text-xl"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-primary mb-2">8.5%</div>
+                    <div class="text-sm text-green-600 flex items-center">
+                        <i class="fa fa-arrow-up mr-1"></i>
+                        <span>较上月增长 12%</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="text-lg font-semibold text-gray-900">平均转化成本</h4>
+                        <i class="fa fa-money text-green-500 text-xl"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-green-500 mb-2">125元</div>
+                    <div class="text-sm text-green-600 flex items-center">
+                        <i class="fa fa-arrow-down mr-1"></i>
+                        <span>较上月下降 8%</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="text-lg font-semibold text-gray-900">ROI表现</h4>
+                        <i class="fa fa-bullseye text-blue-500 text-xl"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-blue-500 mb-2">1:4.2</div>
+                    <div class="text-sm text-green-600 flex items-center">
+                        <i class="fa fa-arrow-up mr-1"></i>
+                        <span>较上月增长 15%</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="text-lg font-semibold text-gray-900">客资质量</h4>
+                        <i class="fa fa-bullseye text-purple-500 text-xl"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-purple-500 mb-2">78%</div>
+                    <div class="text-sm text-green-600 flex items-center">
+                        <i class="fa fa-arrow-up mr-1"></i>
+                        <span>有效转化率提升</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 投放策略 -->
+    <section id="strategy" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-gray-900 mb-4">投放策略指南</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    基于行业最佳实践，提供系统化的投放策略建议
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- 策略1：人群定向 -->
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 card-hover">
+                    <div class="w-16 h-16 bg-blue-500 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fa fa-users text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">精准人群定向</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <i class="fa fa-check-circle text-blue-500 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">核心人群</h4>
+                                <p class="text-gray-600 text-sm">通过DMP人群包圈选近期搜索过竞品词/品类词的用户</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fa fa-check-circle text-blue-500 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">泛人群</h4>
+                                <p class="text-gray-600 text-sm">针对潜在兴趣人群，采用关键词+兴趣标签组合定向</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fa fa-check-circle text-blue-500 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">排除策略</h4>
+                                <p class="text-gray-600 text-sm">排除高互动低转化用户，避免无效消耗</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 策略2：内容优化 -->
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 card-hover">
+                    <div class="w-16 h-16 bg-purple-500 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fa fa-bullseye text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">内容创意优化</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <i class="fa fa-check-circle text-purple-500 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">标题公式</h4>
+                                <p class="text-gray-600 text-sm">认知颠覆+数字锤+情绪词，如"月薪3k vs 月入3w的护肤差别"</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fa fa-check-circle text-purple-500 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">封面设计</h4>
+                                <p class="text-gray-600 text-sm">产品实物+使用场景+效果对比，点击率目标≥10%</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fa fa-check-circle text-purple-500 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">内容结构</h4>
+                                <p class="text-gray-600 text-sm">321模型：前3秒悬念钩子，中间2个痛点，结尾1个解决方案</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 策略3：投放优化 -->
+                <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 card-hover">
+                    <div class="w-16 h-16 bg-green-500 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fa fa-cogs text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">投放策略优化</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <i class="fa fa-check-circle text-green-500 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">搜索广告</h4>
+                                <p class="text-gray-600 text-sm">锁定高转化长尾词，采用精确匹配+高溢价策略</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fa fa-check-circle text-green-500 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">信息流</h4>
+                                <p class="text-gray-600 text-sm">分阶段投放，利用智能扩量功能探索相似人群</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fa fa-check-circle text-green-500 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">数据监控</h4>
+                                <p class="text-gray-600 text-sm">实时监控CTR、CPE、ROI等核心指标，及时调整策略</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 最佳实践 -->
+            <div class="mt-16 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl p-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">最佳实践总结</h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-semibold text-gray-900 flex items-center">
+                            <i class="fa fa-lightbulb-o text-primary mr-2"></i>
+                            聚光投放要点
+                        </h4>
+                        <ul class="space-y-2 text-gray-600">
+                            <li class="flex items-start space-x-2">
+                                <i class="fa fa-angle-right text-primary mt-1"></i>
+                                <span>前期多计划测试，筛选优质素材</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i class="fa fa-angle-right text-primary mt-1"></i>
+                                <span>重点关注预估点击率，这是跑量的关键</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i class="fa fa-angle-right text-primary mt-1"></i>
+                                <span>稳定后转向转化率与成本优化</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i class="fa fa-angle-right text-primary mt-1"></i>
+                                <span>真实、有共鸣的内容+高点击率封面</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-semibold text-gray-900 flex items-center">
+                            <i class="fa fa-rocket text-green-500 mr-2"></i>
+                            乘风投放要点
+                        </h4>
+                        <ul class="space-y-2 text-gray-600">
+                            <li class="flex items-start space-x-2">
+                                <i class="fa fa-angle-right text-green-500 mt-1"></i>
+                                <span>利用高级定向+智能拓量功能</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i class="fa fa-angle-right text-green-500 mt-1"></i>
+                                <span>开启托管功能，促转化放量</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i class="fa fa-angle-right text-green-500 mt-1"></i>
+                                <span>重视直播推广，三阶段投放策略</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i class="fa fa-angle-right text-green-500 mt-1"></i>
+                                <span>群聊深度运营，建立用户社群</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center">
+                            <i class="fa fa-bullseye text-white text-lg"></i>
+                        </div>
+                        <span class="text-xl font-bold">聚光乘风分析</span>
+                    </div>
+                    <p class="text-gray-400">
+                        专业的小红书投放分析平台，为品牌提供数据驱动的营销解决方案。
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">快速导航</h4>
+                    <div class="grid grid-cols-2 gap-2">
+                        <a href="#overview" class="text-gray-400 hover:text-white transition-colors">平台概览</a>
+                        <a href="#cases" class="text-gray-400 hover:text-white transition-colors">成功案例</a>
+                        <a href="#templates" class="text-gray-400 hover:text-white transition-colors">投放模板</a>
+                        <a href="#data" class="text-gray-400 hover:text-white transition-colors">数据分析</a>
+                        <a href="#strategy" class="text-gray-400 hover:text-white transition-colors">投放策略</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">联系我们</h4>
+                    <div class="space-y-2 text-gray-400">
+                        <div class="flex items-center space-x-2">
+                            <i class="fa fa-envelope"></i>
+                            <span>contact@example.com</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fa fa-phone"></i>
+                            <span>400-123-4567</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fa fa-map-marker"></i>
+                            <span>北京市朝阳区</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 聚光乘风分析平台. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.remove('shadow-sm');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.add('shadow-sm');
+            }
+        });
+
+        // 移动端菜单切换
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 平滑滚动
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // 图表初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 平台对比图表
+            const platformCtx = document.getElementById('platformComparisonChart').getContext('2d');
+            new Chart(platformCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['精准定向', '转化效果', '投放门槛', '电商适配', '数据分析', '操作复杂度'],
+                    datasets: [{
+                        label: '聚光平台',
+                        data: [90, 85, 70, 60, 85, 75],
+                        backgroundColor: 'rgba(255, 36, 66, 0.2)',
+                        borderColor: 'rgba(255, 36, 66, 1)',
+                        pointBackgroundColor: 'rgba(255, 36, 66, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(255, 36, 66, 1)'
+                    }, {
+                        label: '乘风平台',
+                        data: [75, 70, 40, 90, 75, 50],
+                        backgroundColor: 'rgba(46, 204, 113, 0.2)',
+                        borderColor: 'rgba(46, 204, 113, 1)',
+                        pointBackgroundColor: 'rgba(46, 204, 113, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(46, 204, 113, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                stepSize: 20
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 投放效果趋势图表
+            const trendCtx = document.getElementById('performanceTrendChart').getContext('2d');
+            new Chart(trendCtx, {
+                type: 'line',
+                data: {
+                    labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
+                    datasets: [{
+                        label: '点击率(%)',
+                        data: [6.2, 6.8, 7.5, 7.9, 8.2, 8.5],
+                        borderColor: 'rgba(255, 36, 66, 1)',
+                        backgroundColor: 'rgba(255, 36, 66, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: '转化成本(元)',
+                        data: [165, 158, 145, 138, 130, 125],
+                        borderColor: 'rgba(46, 204, 113, 1)',
+                        backgroundColor: 'rgba(46, 204, 113, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        yAxisID: 'y1'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: '点击率(%)'
+                            }
+                        },
+                        y1: {
+                            beginAtZero: false,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: '转化成本(元)'
+                            },
+                            grid: {
+                                drawOnChartArea: false
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+        // 导航链接点击事件
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // 关闭移动端菜单
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+
+        // 页面加载动画
+        window.addEventListener('load', function() {
+            const elements = document.querySelectorAll('.card-hover');
+            elements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        });
+
+        // 初始化样式
+        document.querySelectorAll('.card-hover').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.5s ease';
+        });
+    </script>
+</body>
+</html>
